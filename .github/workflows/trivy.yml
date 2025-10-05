@@ -28,7 +28,10 @@ jobs:
 
       # Build Docker image
       - name: Build Docker image
-        run: docker build -t myapp:latest .
+        run: |
+          docker build -t myapp:latest .
+          docker tag myapp:latest somnv88/qtm:latest
+          
 
       # Quét image đã build
       - name: Run Trivy image scan
@@ -39,3 +42,15 @@ jobs:
           exit-code: 1
           ignore-unfixed: true
           severity: CRITICAL,HIGH
+      - name: SSH deploy
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            docker pull somnv88/qtm:latest
+            docker stop qtm || true
+            docker rm qtm || true
+            docker run -d --name qtm -p 3000:3000 somnv88/qtm:latest
+
