@@ -31,7 +31,7 @@ jobs:
         run: |
           docker build -t myapp:latest .
           docker tag myapp:latest somnv88/qtm:latest
-          
+          docker push somnv88/qtm:latest
 
       # Quét image đã build
       - name: Run Trivy image scan
