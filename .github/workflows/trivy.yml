@@ -30,10 +30,14 @@ jobs:
       - name: Build Docker image
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-
-          docker build -t myapp:latest .
+          export DOCKER_BUILDKIT=1
+          docker build --build-arg BUILDKIT_INLINE_CACHE=1 -t myapp:latest .
           docker tag myapp:latest somnv88/qtm:latest
           docker push somnv88/qtm:latest
+          # Later
+          docker pull somnv88/qtm:latest
+          docker build --cache-from=somnv88/qtm:latest -t myapp:latest .
+
 
       # Quét image đã build
       - name: Run Trivy image scan
