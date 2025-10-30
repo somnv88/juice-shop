@@ -44,14 +44,10 @@ jobs:
       - name: ZAP Full Scan
         uses: zaproxy/action-full-scan@v0.13.0
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          docker_name: ghcr.io/zaproxy/zaproxy:stable
+          # token: ${{ secrets.GITHUB_TOKEN }}
+          # docker_name: ghcr.io/zaproxy/zaproxy:stable
           target: ${{ env.TARGET }}
           # rules_file_name: .zap/rules.tsv         # optional ignore/level overrides
-          cmd_options: >-
-            -a                                    # include alpha rules
-            -j                                    # add Ajax spider
-            -T 60                                 # wait limit (minutes) for startup + passive
           # fail_action: 'true'                     # fail job if any alerts
-          allow_issue_writing: 'true'             # create/update GitHub Issue with results
-          artifact_name: zap_full_scan            # HTML/JSON report attached to run
+          # allow_issue_writing: 'true'             # create/update GitHub Issue with results
+          # artifact_name: zap_full_scan            # HTML/JSON report attached to run
