@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - master
+      # - master
   pull_request:
 
 jobs:
@@ -52,7 +52,7 @@ jobs:
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.EC2_HOST }}
-          username: ec2-user
+          username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             docker pull somnv88/qtm:latest
