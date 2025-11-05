@@ -19,6 +19,12 @@ jobs:
         env:
           SONAR_TOKEN: sqp_b35740ed7ed59c12bd1d3bad09528eb218a3e69d
           SONAR_HOST_URL: http://54.82.94.27:9000
+        with:
+          # Prefer a sonar-project.properties file.
+          # If you don’t have one, pass minimal args here:
+          args: >
+            -Dsonar.projectKey=juice-shop
+            -Dsonar.projectName=juice-shop
       # If you wish to fail your job when the Quality Gate is red, uncomment the
       # following lines. This would typically be used to fail a deployment.
       # - uses: sonarsource/sonarqube-quality-gate-action@master
