@@ -1,16 +1,8 @@
 name: ZAP Full Scan
 
 on:
-  workflow_dispatch:
-    inputs:
-      target_url:
-        description: "Target URL to scan"
-        required: true
-        default: "https://example.com"
-  schedule:
-    - cron: "0 17 * * 1" # weekly, Mondays 17:00 UTC
   push:
-    branches: [main, master]
+    branches: [main]
 
 # Needed so the action can open/update an Issue with alerts
 permissions:
